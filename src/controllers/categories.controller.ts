@@ -6,24 +6,36 @@ import {
   Put,
   Delete,
   Param,
+  ParseIntPipe,
 } from '@nestjs/common';
+
+import { CategoriesService } from 'src/services/categories/categories.service';
+import { CreateCategoryDto, UpdateCategoryDto } from 'src/dto/category.dto';
 
 @Controller('categories')
 export class CategoriesController {
+  constructor(private categoriesService: CategoriesService) {}
   @Get()
-  getHello(): string {
-    return 'Get Categories';
+  findAll() {
+    return this.categoriesService.findAll();
+  }
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.categoriesService.findOne(id);
   }
   @Post()
-  create(@Body() PayLoad: any) {
-    return { message: 'created', body: PayLoad };
+  create(@Body() PayLoad: CreateCategoryDto) {
+    return this.categoriesService.create(PayLoad);
   }
   @Put(':id')
-  update(@Body() PayLoad: any, @Param('id') id: number) {
-    return { message: 'Updated', id, boyd: PayLoad };
+  update(
+    @Body() PayLoad: UpdateCategoryDto,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.categoriesService.update(id, PayLoad);
   }
   @Delete(':id')
-  delete(@Param('id') id: number) {
-    return { message: 'Deleted', id };
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.categoriesService.remove(id);
   }
 }
