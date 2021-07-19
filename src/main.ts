@@ -10,7 +10,7 @@ async function bootstrap() {
       //WhiteList elimina del PayLoad todas las propiedas ajenas
       whitelist: true,
       //fordid, retorna un mensaje de error a detectar una propiedad no reconocida en el PayLoad
-      //forbidNonWhitelisted:true
+      forbidNonWhitelisted: true,
     }),
   );
   await app.listen(3000);

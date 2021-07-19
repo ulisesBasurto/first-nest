@@ -7,23 +7,26 @@ import {
   Delete,
   Param,
 } from '@nestjs/common';
+import { BrandsService } from '../services/brands/brands.service';
+import { CreateBrandDto, UpdateBrandDto } from 'src/dto/brands.dto';
 
 @Controller('brands')
 export class BrandsController {
+  constructor(private brandsService: BrandsService) {}
   @Get()
-  getHello(): string {
-    return 'Get Brands';
+  findAll() {
+    return this.brandsService.findAll();
   }
   @Post()
-  create(@Body() PayLoad: any) {
-    return { message: 'created', body: PayLoad };
+  create(@Body() PayLoad: CreateBrandDto) {
+    return this.brandsService.create(PayLoad);
   }
   @Put(':id')
-  update(@Body() PayLoad: any, @Param('id') id: number) {
-    return { message: 'Updated', id, boyd: PayLoad };
+  update(@Body() PayLoad: UpdateBrandDto, @Param('id') id: number) {
+    return this.brandsService.update(id, PayLoad);
   }
   @Delete(':id')
   delete(@Param('id') id: number) {
-    return { message: 'Deleted', id };
+    return this.brandsService.remove(id);
   }
 }
