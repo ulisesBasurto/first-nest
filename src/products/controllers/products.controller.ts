@@ -12,9 +12,9 @@ import {
   HttpException,
   ParseIntPipe,
 } from '@nestjs/common';
-import { ProductsService } from '../services/products/products.service';
-import { MineParseIntPipe } from '../common/parse-int.pipe';
-import { CreateProductDto, UpdateProductDto } from '../dto/produtcs.dto';
+import { ProductsService } from '../services/products.service';
+import { MineParseIntPipe } from '../../common/parse-int.pipe';
+import { CreateProductDto, UpdateProductDto } from '../dtos/produtcs.dto';
 
 import { Response } from 'express';
 @Controller('products')
